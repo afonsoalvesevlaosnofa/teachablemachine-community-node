@@ -14,6 +14,10 @@
  * limitations under the License.
  * =============================================================================
  */
+import * as node_url from "node:url";
+// replace fetch
+import * as fs from "node:fs/promises";
+
 import * as tf from "@tensorflow/tfjs";
 import * as posenet from "@tensorflow-models/posenet";
 import { PosenetInput, Padding } from "@tensorflow-models/posenet/dist/types";
@@ -79,8 +83,8 @@ const isMetadata = (c: any): c is Metadata =>
 const processMetadata = async (metadata: string | Metadata) => {
 	let metadataJSON: Metadata;
 	if (typeof metadata === "string") {
-		const metadataResponse = await fetch(metadata);
-        metadataJSON = await metadataResponse.json();
+		const metadataResponse = await fs.readFile(node_url.fileURLToPath(metadata), "utf-8");
+        metadataJSON = await JSON.parse(metadataResponse);
 	} else if (isMetadata(metadata)) {
 		metadataJSON = metadata;
 	} else {
