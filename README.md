@@ -1,3 +1,5 @@
+# Don't use this fork, it's not being worked on. Also it just replaces a fetch with fs.readFile and fileURLToPath, so be wary of that
+
 # Teachable Machine Community
 
 ![Teachable Machine](./teachablemachine.gif)
